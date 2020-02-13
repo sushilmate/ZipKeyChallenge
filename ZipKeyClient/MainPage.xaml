@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="ZipKeyClient.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZipKeyClient"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*" />
+            <RowDefinition Height="1.5*" />
+        </Grid.RowDefinitions>
+        <CaptureElement Name="CamPreview" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="Fill"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" >
+            <Button x:Name="StartStream" Margin="5" Height="35" Background="DeepSkyBlue" Content="START STREAM" Click="StartStream_Click" />
+            <Button x:Name="StopStream" Height="35" Background="DeepSkyBlue" Content="STOP STREAM" Click="StopStream_Click" />
+        </StackPanel>
+    </Grid>
+</Page>
