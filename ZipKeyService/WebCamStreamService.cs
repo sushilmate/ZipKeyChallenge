@@ -9,6 +9,7 @@ namespace ZipKeyService
     {
         private static MediaCapture mediaCapture;
         private static bool IsClientConnect;
+        private static bool IsWebCamAvailable;
 
         static WebCamStreamService()
         {
@@ -20,6 +21,7 @@ namespace ZipKeyService
             if (mediaCapture == null)
                 mediaCapture = new MediaCapture();
             IsClientConnect = false;
+            IsWebCamAvailable = true;
 
             MediaCaptureInitializationSettings settings = new MediaCaptureInitializationSettings
             {
@@ -32,12 +34,17 @@ namespace ZipKeyService
 
         private static void MediaCapture_Failed(MediaCapture sender, MediaCaptureFailedEventArgs errorEventArgs)
         {
-            throw new NotImplementedException();
+            IsWebCamAvailable = false;
         }
 
         public async Task<bool> StartWebCamStream(CaptureElement camHostElement)
         {
+            // return if the client is already connected.
             if (IsClientConnect)
+                return false;
+
+            // return if the web cam is not present on the machine.
+            if (!IsWebCamAvailable)
                 return false;
 
             camHostElement.Source = mediaCapture;
@@ -53,11 +60,7 @@ namespace ZipKeyService
 
             return true;
         }
-
-        private void MediaCapture_CameraStreamFailed(MediaCapture sender, MediaCaptureFailedEventArgs errorEventArgs)
-        {
-        }
-
+               
         private async Task CleanupCameraAsync()
         {
             IsClientConnect = false;
