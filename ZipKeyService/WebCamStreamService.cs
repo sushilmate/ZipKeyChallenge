@@ -12,23 +12,33 @@ namespace ZipKeyService
 
         static WebCamStreamService()
         {
+            InitializeAsync();
+        }
+
+        private static async Task InitializeAsync()
+        {
             if (mediaCapture == null)
                 mediaCapture = new MediaCapture();
             IsClientConnect = false;
-        }
-        
-        public async Task<bool> StartWebCamStream(CaptureElement camHostElement)
-        {
-            if (IsClientConnect)
-                return false;
 
             MediaCaptureInitializationSettings settings = new MediaCaptureInitializationSettings
             {
                 StreamingCaptureMode = StreamingCaptureMode.Video
             };
-           
+
             await mediaCapture.InitializeAsync(settings);
-            mediaCapture.Failed += this.MediaCapture_CameraStreamFailed;
+            mediaCapture.Failed += MediaCapture_Failed;
+        }
+
+        private static void MediaCapture_Failed(MediaCapture sender, MediaCaptureFailedEventArgs errorEventArgs)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> StartWebCamStream(CaptureElement camHostElement)
+        {
+            if (IsClientConnect)
+                return false;
 
             camHostElement.Source = mediaCapture;
             await mediaCapture.StartPreviewAsync();
@@ -50,11 +60,13 @@ namespace ZipKeyService
 
         private async Task CleanupCameraAsync()
         {
+            IsClientConnect = false;
+
             if (mediaCapture != null)
             {
                 await mediaCapture.StopPreviewAsync();
             }
-            mediaCapture = null;
+           // mediaCapture = null;
         }
     }
 }

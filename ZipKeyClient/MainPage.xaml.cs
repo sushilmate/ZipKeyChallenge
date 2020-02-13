@@ -16,13 +16,19 @@ namespace ZipKeyClient
 
         private async void StartStream_Click(object sender, RoutedEventArgs e)
         {
-            await WebCamService.StartWebCamStream(CamPreview);
+           var isConnected = await WebCamService.StartWebCamStream(CamPreview);
+
+            if (isConnected)
+                Status.Text = "Connected.";
+            else
+                Status.Text = "Unable to Connect.";
         }
 
         private async void StopStream_Click(object sender, RoutedEventArgs e)
         {
             await WebCamService.StopWebCamStream();
             this.CamPreview.Source = null;
+            Status.Text = "Disconnected.";
         }
     }
 }

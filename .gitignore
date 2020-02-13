@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs/ZipKeyChallenge/v16
+/ZipKeyClient/bin/x86/Debug
+/ZipKeyClient/obj
+/ZipKeyService/obj
+/ZipKeyService/bin

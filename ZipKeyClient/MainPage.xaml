@@ -15,10 +15,20 @@
             <RowDefinition Height="8*" />
             <RowDefinition Height="1.5*" />
         </Grid.RowDefinitions>
-        <CaptureElement Name="CamPreview" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="Fill"/>
+        <CaptureElement Margin="50,0,50,0" Name="CamPreview" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="Fill"/>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" >
             <Button x:Name="StartStream" Margin="5" Height="35" Background="DeepSkyBlue" Content="START STREAM" Click="StartStream_Click" />
             <Button x:Name="StopStream" Height="35" Background="DeepSkyBlue" Content="STOP STREAM" Click="StopStream_Click" />
+            <ListView Header="Status" SelectionMode="None" Width="250">
+                <ListView.HeaderTemplate>
+                    <DataTemplate>
+                        <ListViewHeaderItem Content="{Binding}" FontSize="10" />
+                    </DataTemplate>
+                </ListView.HeaderTemplate>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="10" x:Name="Status" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Disconnected" />
+                </StackPanel>
+            </ListView>
         </StackPanel>
     </Grid>
 </Page>
